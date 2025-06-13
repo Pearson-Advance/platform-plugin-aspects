@@ -31,7 +31,11 @@ def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cov
     from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
         dump_course_to_clickhouse,
     )
-
+    print('PLATFORM PLUGIN ASPECTS')
+    print('PLATFORM PLUGIN ASPECTS')
+    print('PLATFORM PLUGIN ASPECTS')
+    print('PLATFORM PLUGIN ASPECTS')
+    print(str(course_key))
     dump_course_to_clickhouse.delay(str(course_key))
 
 

@@ -33,8 +33,16 @@ def dump_course_to_clickhouse(course_key_string, connection_overrides=None):
             connection_overrides=connection_overrides, log=celery_log
         )
         sink.dump(course_key)
-
+        print(sink)
+        print('PLATFORM PLUGIN ASPECTS')
+        print('PLATFORM PLUGIN ASPECTS')
+        print('PLATFORM PLUGIN ASPECTS')
+        print('PLATFORM PLUGIN ASPECTS')
+        print('PLATFORM PLUGIN ASPECTS')
+        print(course_key)
+        print(course_key)
         ccx_courses = get_ccx_courses(course_key)
+        print(ccx_courses)
         for ccx_course in ccx_courses:
             ccx_course_key = str(ccx_course.locator)
             sink.dump(ccx_course_key)

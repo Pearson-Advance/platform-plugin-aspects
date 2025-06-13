@@ -266,6 +266,11 @@ def get_ccx_courses(course_id):
     Get the CCX courses for a given course.
     """
     if settings.FEATURES.get("CUSTOM_COURSES_EDX"):
+        print('PLATFORM PLUGIN ASPECTS')
+        print('PLATFORM PLUGIN ASPECTS')
+        print('PLATFORM PLUGIN ASPECTS')
+        print('PLATFORM PLUGIN ASPECTS')
+        print(get_model("custom_course_edx").objects.filter(course_id=course_id))
         return get_model("custom_course_edx").objects.filter(course_id=course_id)
     return []
 
