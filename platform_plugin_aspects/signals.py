@@ -21,22 +21,33 @@ except ImportError:
     USER_RETIRE_LMS_MISC = Signal()
 
 
-def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cover
-    sender, course_key, **kwargs
-):
-    """
-    Receives COURSE_PUBLISHED signal and queues the dump job.
-    """
-    # import here, because signal is registered at startup, but items in tasks are not yet able to be loaded
-    from platform_plugin_aspects.tasks import (  # pylint: disable=import-outside-toplevel
-        dump_course_to_clickhouse,
-    )
-    print('PLATFORM PLUGIN ASPECTS')
-    print('PLATFORM PLUGIN ASPECTS')
-    print('PLATFORM PLUGIN ASPECTS')
-    print('PLATFORM PLUGIN ASPECTS')
-    print(str(course_key))
-    dump_course_to_clickhouse.delay(str(course_key))
+def receive_course_publish(sender, course_key, **kwargs):
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.warning("🔔 Signal received for course_key=%s", course_key)
+
+    from platform_plugin_aspects.tasks import dump_course_to_clickhouse
+    try:
+        print('SUCCESS')
+        print('SUCCESS')
+        print('SUCCESS')
+        print('SUCCESS')
+        print('SUCCESS')
+        print('SUCCESS')
+        print('SUCCESS')
+        print('SUCCESS')
+        result = dump_course_to_clickhouse.delay(str(course_key))
+        logger.warning("✅ Celery task triggered for course_key=%s", course_key)
+    except Exception as e:
+        print('ERROR')
+        print('ERROR')
+        print('ERROR')
+        print('ERROR')
+        print('ERROR')
+        print('ERROR')
+        print('ERROR')
+        print('ERROR')
+        logger.error("❌ Failed to trigger Celery task: %s", e, exc_info=True)
 
 
 def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pragma: no cover
