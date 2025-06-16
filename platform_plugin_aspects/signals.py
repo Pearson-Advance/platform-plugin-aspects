@@ -13,6 +13,7 @@ from platform_plugin_aspects.sinks import (
     UserRetirementSink,
 )
 from platform_plugin_aspects.utils import get_model
+from django.db import transaction
 
 try:
     from openedx.core.djangoapps.user_api.accounts.signals import USER_RETIRE_LMS_MISC
@@ -36,8 +37,11 @@ def receive_course_publish(sender, course_key, **kwargs):
         print('SUCCESS')
         print('SUCCESS')
         print('SUCCESS')
-        result = dump_course_to_clickhouse.delay(str(course_key))
+        # result = dump_course_to_clickhouse.delay(str(course_key))
         logger.warning("✅ Celery task triggered for course_key=%s", course_key)
+        transaction.on_commit(
+            lambda: dump_course_to_clickhouse.delay(str(course_key))
+        )
     except Exception as e:
         print('ERROR')
         print('ERROR')
