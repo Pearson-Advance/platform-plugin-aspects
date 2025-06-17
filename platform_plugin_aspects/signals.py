@@ -32,7 +32,7 @@ def receive_course_publish(  # pylint: disable=unused-argument  # pragma: no cov
         dump_course_to_clickhouse,
     )
 
-    dump_course_to_clickhouse.delay(str(course_key))
+    transaction.on_commit(lambda: dump_course_to_clickhouse.delay(str(course_key)))
 
 
 def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pragma: no cover
