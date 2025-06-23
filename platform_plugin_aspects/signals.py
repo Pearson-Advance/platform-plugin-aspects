@@ -53,10 +53,12 @@ def receive_course_enrollment_changed(  # pylint: disable=unused-argument  # pra
 
     sink = CourseEnrollmentSink(None, None)
 
-    dump_data_to_clickhouse.delay(
-        sink_module=sink.__module__,
-        sink_name=sink.__class__.__name__,
-        object_id=instance.id,
+    transaction.on_commit(
+        lambda: dump_data_to_clickhouse.delay(
+            sink_module=sink.__module__,
+            sink_name=sink.__class__.__name__,
+            object_id=instance.id,
+        )
     )
 
 
